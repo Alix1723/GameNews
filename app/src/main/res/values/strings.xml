@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">GameNews</string>
+    <string name="title_activity_main_menu">GameNews</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="welcome_msg">Welcomet to GameNews!</string>
+    <string name="button_news">News Feed</string>
+    <string name="button_famousdevs">Famous Game Developers</string>
+    <string name="title_activity_news_feed">NewsFeed</string>
+
+</resources>
