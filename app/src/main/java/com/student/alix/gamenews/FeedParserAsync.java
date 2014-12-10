@@ -27,7 +27,7 @@ public class FeedParserAsync extends AsyncTask<String, Integer, ArrayList<NewsDa
     @Override
     protected void onPreExecute()
     {
-        Toast.makeText(appContext, "Parsing initialized...",Toast.LENGTH_SHORT);
+        //Toast.makeText(appContext, "Parsing initialized...",Toast.LENGTH_SHORT);
     }
 
     //Parsing
@@ -54,6 +54,6 @@ public class FeedParserAsync extends AsyncTask<String, Integer, ArrayList<NewsDa
     @Override
     protected void onPostExecute(ArrayList<NewsDataItem> result)
     {
-        Toast.makeText(appContext,"Done parsing!", Toast.LENGTH_SHORT);
+       // Toast.makeText(appContext,"Done parsing!", Toast.LENGTH_SHORT);
     }
 }

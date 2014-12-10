@@ -1,11 +1,14 @@
 package com.student.alix.gamenews;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Debug;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -14,6 +17,8 @@ import java.util.concurrent.ExecutionException;
 public class NewsFeed extends Activity {
 
     TextView DebugOut;
+    FeedParserAsync feedParserTask;
+    ArrayList<NewsDataItem> NewsDataArray = new ArrayList<NewsDataItem>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,32 +27,61 @@ public class NewsFeed extends Activity {
 
         //Debug out
         DebugOut = (TextView)findViewById(R.id.text_debug);
-        DebugOut.setText("Loading...");
+        DebugOut.setText("");
 
-        //String to access RSS feed from
-        String FeedURL = "http://www.psnation.com/category/news/ps4-news/feed/";
+        //Toast
+        //Toast.makeText(this,"Loading...", Toast.LENGTH_SHORT);
 
-        //Array to store news data in
-        ArrayList<NewsDataItem> NewsDataArray = new ArrayList<NewsDataItem>();
+        //Read feed
+        ReadRSSFeed();
+    }
 
-        //Feed parser object
-        FeedParserAsync fpa = new FeedParserAsync(this, FeedURL);
+    //Run RSS read/parse task
+    void ReadRSSFeed()
+    {
 
-        try
-        {   //Run the background task
-            NewsDataArray = fpa.execute("").get();
-        }
-        catch(InterruptedException ex)
-        {
-            ex.printStackTrace();
-        }
-        catch(ExecutionException ex)
-        {
-            ex.printStackTrace();
-        }
+        NewsDataArray = new ArrayList<NewsDataItem>();                              //Assign empty arraylist
+        String FeedURL = "http://www.psnation.com/category/news/ps4-news/feed/";    //String to access RSS feed from
+        feedParserTask = new FeedParserAsync(this, FeedURL);                        //Feed parser object
 
-        //Debug
-        DebugOut.setText(NewsDataArray.get(1).getDescription());
+        //Run the background task
+        feedParserTask.execute("");
+
+        //Handler to run task and update progress
+        final Handler hnd = new Handler();
+        //Runnable
+        hnd.post(new Runnable()
+            {
+                public void run()
+                {
+                    //Task finished
+                    if(feedParserTask.getStatus() == AsyncTask.Status.FINISHED)
+                    {
+                        //Retrieve result from task
+                        try
+                        {
+                            NewsDataArray = feedParserTask.get();
+
+                            //Debug
+                            DebugOut.setText(NewsDataArray.get(1).getDescription());
+                        }
+                        catch(InterruptedException ex)
+                        {
+                            ex.printStackTrace();
+                        }
+                        catch(ExecutionException ex)
+                        {
+                            ex.printStackTrace();
+                        }
+                    }
+                    else
+                    {   //Run this again every 200ms until task is complete
+                        hnd.postDelayed(this, 200);
+                    }
+                }
+        });
+
+
     }
 
     @Override
