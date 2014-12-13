@@ -7,6 +7,8 @@ import android.os.Debug;
 import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +21,7 @@ public class NewsFeed extends Activity {
     TextView DebugOut;
     FeedParserAsync feedParserTask;
     ArrayList<NewsDataItem> NewsDataArray = new ArrayList<NewsDataItem>();
+    ListView newsListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +30,7 @@ public class NewsFeed extends Activity {
 
         //Debug out
         DebugOut = (TextView)findViewById(R.id.text_debug);
-        DebugOut.setText("");
+        newsListView = (ListView)findViewById(R.id.news_list_view);
 
         //Toast
         //Toast.makeText(this,"Loading...", Toast.LENGTH_SHORT);
@@ -37,8 +40,9 @@ public class NewsFeed extends Activity {
     }
 
     //Run RSS read/parse task
-    void ReadRSSFeed()
-    {
+    void ReadRSSFeed() {
+
+        DebugOut.setText("Loading..."); //Loading text
 
         NewsDataArray = new ArrayList<NewsDataItem>();                              //Assign empty arraylist
         String FeedURL = "http://www.psnation.com/category/news/ps4-news/feed/";    //String to access RSS feed from
@@ -50,38 +54,42 @@ public class NewsFeed extends Activity {
         //Handler to run task and update progress
         final Handler hnd = new Handler();
         //Runnable
-        hnd.post(new Runnable()
-            {
-                public void run()
-                {
-                    //Task finished
-                    if(feedParserTask.getStatus() == AsyncTask.Status.FINISHED)
-                    {
-                        //Retrieve result from task
-                        try
-                        {
-                            NewsDataArray = feedParserTask.get();
+        hnd.post(new Runnable() {
+                     public void run() {
+                         //Check if the task is finished
+                         if (feedParserTask.getStatus() == AsyncTask.Status.FINISHED) {
+                             //Retrieve result from task
+                             try {
+                                 NewsDataArray = feedParserTask.get();
 
-                            //Debug
-                            DebugOut.setText(NewsDataArray.get(1).getDescription());
-                        }
-                        catch(InterruptedException ex)
-                        {
-                            ex.printStackTrace();
-                        }
-                        catch(ExecutionException ex)
-                        {
-                            ex.printStackTrace();
-                        }
-                    }
-                    else
-                    {   //Run this again every 200ms until task is complete
-                        hnd.postDelayed(this, 200);
-                    }
-                }
-        });
+                                 DisplayNews();
+                                 //Debug
+                                 //DebugOut.setText(NewsDataArray.get(1).getDescription());
+                             } catch (InterruptedException ex) {
+                                 ex.printStackTrace();
+                             } catch (ExecutionException ex) {
+                                 ex.printStackTrace();
+                             }
+                         } else {   //Run this again every 200ms until task is complete
+                             hnd.postDelayed(this, 200);
+                         }
+                     }
+                 }
+        );
+    }
 
+    //Populate list with news data
+    void DisplayNews()
+    {
+        //newsListView
+        ArrayAdapter<NewsDataItem> arrAdapt = new ArrayAdapter<NewsDataItem>(
+                this,
+                android.R.layout.simple_expandable_list_item_1,
+                NewsDataArray);
 
+        newsListView.setAdapter(arrAdapt);
+
+        DebugOut.setText("Done.");
     }
 
     @Override

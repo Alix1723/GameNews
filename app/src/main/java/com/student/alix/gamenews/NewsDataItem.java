@@ -61,7 +61,7 @@ public class NewsDataItem
     @Override
     public String toString()
     {
-        String str = "NewsDataItem: " + newsTitle + ", " + newsDescription + ", " + newsLink;
+        String str = newsTitle;//"NewsDataItem: " + newsTitle + ", " + newsDescription + ", " + newsLink;
         return str;
     }
 }
