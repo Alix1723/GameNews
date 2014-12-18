@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.student.alix.gamenews" >
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -26,7 +26,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.student.alix.gamenews.MainMenu" />
         </activity>
-
+        <activity
+            android:name=".PreferencesActivity"
+            android:label="@string/title_activity_preferences"
+            android:parentActivityName=".MainMenu" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.student.alix.gamenews.MainMenu" />
+        </activity>
     </application>
 
 </manifest>

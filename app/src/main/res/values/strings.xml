@@ -10,5 +10,8 @@
     <string name="button_famousdevs">Famous Game Developers</string>
     <string name="title_activity_news_feed">NewsFeed</string>
     <string name="action_refresh">Refresh</string>
+    <string name="title_activity_preferences">PreferencesActivity</string>
+    <string name="title_preferences">Platform Selection</string>
+    <string name="action_platform">Platform</string>
 
 </resources>

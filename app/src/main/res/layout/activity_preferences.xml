@@ -1,0 +1,81 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.student.alix.gamenews.PreferencesActivity">
+
+    <TextView android:text="@string/title_preferences" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:id="@+id/textView2" />
+    <TextView android:text="This will change what platform your news feed displays."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textView3" />
+
+    <RadioGroup
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Xbox (Microsoft)"
+            android:id="@+id/radio_xbox"
+            android:layout_below="@+id/textView2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:textColor="@android:color/primary_text_dark"
+            android:layout_gravity="center_horizontal"
+            android:onClick="onRadioButtonClicked"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Playstation (Sony)"
+            android:id="@+id/radio_ps"
+            android:textColor="@android:color/primary_text_dark"
+            android:layout_below="@+id/radio_xbox"
+            android:layout_alignLeft="@+id/radio_xbox"
+            android:layout_alignStart="@+id/radio_xbox"
+            android:layout_gravity="center_horizontal"
+            android:onClick="onRadioButtonClicked"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WiiU / DS (Nintendo)"
+            android:id="@+id/radio_nint"
+            android:textColor="@android:color/primary_text_dark"
+            android:layout_below="@+id/radio_ps"
+            android:layout_alignLeft="@+id/radio_ps"
+            android:layout_alignStart="@+id/radio_ps"
+            android:layout_gravity="center_horizontal"
+            android:onClick="onRadioButtonClicked"/>
+    </RadioGroup>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save &amp; Close"
+        android:id="@+id/button_save"
+        android:background="#999999"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:enabled="true"
+        android:clickable="true"
+        android:onClick="onClick" />
+
+</RelativeLayout>

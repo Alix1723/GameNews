@@ -2,11 +2,13 @@ package com.student.alix.gamenews;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Debug;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +31,9 @@ public class NewsFeed extends Activity {
     ArrayList<NewsDataItem> NewsDataArray = new ArrayList<NewsDataItem>();
     ListView newsListView;
     ProgressBar loadingSpinner;
+    SharedPreferences prefs;
+    String platform;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,19 +45,39 @@ public class NewsFeed extends Activity {
         loadingSpinner = (ProgressBar)findViewById(R.id.loading_spinner);
         newsListView = (ListView)findViewById(R.id.news_list_view);
 
+        //Preferences
+        prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
         //Read feed
         ReadRSSFeed();
     }
 
     //Run RSS read/parse task
     void ReadRSSFeed() {
+        //Determine platform from prefence
+        platform = prefs.getString("platform","none");
 
         //DebugOut.setText("Loading..."); //Loading text
-        loadingSpinner.setVisibility(View.VISIBLE);
+        loadingSpinner.setVisibility(View.VISIBLE); //Loading spinner
 
-        NewsDataArray = new ArrayList<NewsDataItem>();                              //Assign empty arraylist
-        String FeedURL = "http://www.psnation.com/category/news/ps4-news/feed/";    //String to access RSS feed from
-        feedParserTask = new FeedParserAsync(this, FeedURL);                        //Feed parser object
+        //Assign empty arraylist
+        NewsDataArray = new ArrayList<NewsDataItem>();
+
+        //String to access RSS feed from
+        String FeedURL = "";
+
+        switch (platform)
+        {
+            case "xbox":
+                FeedURL = "http://www.totalxbox.com/rss/feed.php?priority=1&limit=10"; break;
+            case "ps":
+                FeedURL = "http://www.psnation.com/category/news/ps4-news/feed/"; break;
+            case "nint":
+                FeedURL = "http://www.nintendolife.com/feeds/news"; break;
+        }
+
+        //Feed parser object
+        feedParserTask = new FeedParserAsync(this, FeedURL);
 
         //Run the background task
         feedParserTask.execute("");
@@ -111,7 +136,7 @@ public class NewsFeed extends Activity {
                 }
         );
 
-        DebugOut.setText("Done.");
+        //DebugOut.setText("Done.");
     }
 
     @Override
@@ -131,6 +156,13 @@ public class NewsFeed extends Activity {
         {
             newsListView.setAdapter(null);
             ReadRSSFeed();
+        }
+        else if(id == R.id.action_settings)
+        {
+            //Open preference menu
+            Intent openPrefsIntent = new Intent(getApplicationContext(), PreferencesActivity.class);
+            startActivity(openPrefsIntent);
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

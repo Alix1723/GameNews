@@ -2,8 +2,10 @@ package com.student.alix.gamenews;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +15,8 @@ public class MainMenu extends Activity implements View.OnClickListener {
 
     Button NewsFeedButton;
     Button FamousDevsButton;
+    SharedPreferences sharedPrefs;
+    PlatformPreferences platPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +33,8 @@ public class MainMenu extends Activity implements View.OnClickListener {
         FamousDevsButton = (Button) findViewById(R.id.button_famousdevs);
         FamousDevsButton.setOnClickListener(this);
 
-
+        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        platPrefs = new PlatformPreferences(sharedPrefs); //Defaults to PS
     }
 
     @Override
@@ -45,9 +50,14 @@ public class MainMenu extends Activity implements View.OnClickListener {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+
         if (id == R.id.action_settings) {
+            //Open preference menu
+            Intent openPrefsIntent = new Intent(getApplicationContext(), PreferencesActivity.class);
+            startActivity(openPrefsIntent);
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
