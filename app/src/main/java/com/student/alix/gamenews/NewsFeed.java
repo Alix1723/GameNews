@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ public class NewsFeed extends Activity {
     FeedParserAsync feedParserTask;
     ArrayList<NewsDataItem> NewsDataArray = new ArrayList<NewsDataItem>();
     ListView newsListView;
+    ProgressBar loadingSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +36,9 @@ public class NewsFeed extends Activity {
         setContentView(R.layout.activity_news_feed);
 
         //Debug out
-        DebugOut = (TextView)findViewById(R.id.text_debug);
+        //DebugOut = (TextView)findViewById(R.id.text_debug);
+        loadingSpinner = (ProgressBar)findViewById(R.id.loading_spinner);
         newsListView = (ListView)findViewById(R.id.news_list_view);
-
-        //Toast
-        //Toast.makeText(this,"Loading...", Toast.LENGTH_SHORT);
 
         //Read feed
         ReadRSSFeed();
@@ -47,7 +47,8 @@ public class NewsFeed extends Activity {
     //Run RSS read/parse task
     void ReadRSSFeed() {
 
-        DebugOut.setText("Loading..."); //Loading text
+        //DebugOut.setText("Loading..."); //Loading text
+        loadingSpinner.setVisibility(View.VISIBLE);
 
         NewsDataArray = new ArrayList<NewsDataItem>();                              //Assign empty arraylist
         String FeedURL = "http://www.psnation.com/category/news/ps4-news/feed/";    //String to access RSS feed from
@@ -92,6 +93,7 @@ public class NewsFeed extends Activity {
                 android.R.layout.simple_expandable_list_item_1,
                 NewsDataArray);
 
+        loadingSpinner.setVisibility(View.GONE);
         newsListView.setAdapter(arrAdapt);
 
         //List view click listener
@@ -125,8 +127,10 @@ public class NewsFeed extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+        if(id == R.id.action_refresh)
+        {
+            newsListView.setAdapter(null);
+            ReadRSSFeed();
         }
         return super.onOptionsItemSelected(item);
     }

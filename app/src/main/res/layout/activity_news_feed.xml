@@ -9,11 +9,11 @@
     tools:context="com.student.alix.gamenews.NewsFeed"
     android:orientation="vertical">
 
-    <TextView
+    <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/text_debug" />
+        android:id="@+id/loading_spinner"
+        android:layout_gravity="center"/>
 
     <ListView
         android:layout_width="wrap_content"
@@ -22,4 +22,10 @@
         android:dividerHeight="5dp"
         android:id="@+id/news_list_view" />
 
+    <!--<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/text_debug" />!-->
 </LinearLayout>
+

@@ -9,5 +9,6 @@
     <string name="button_news">News Feed</string>
     <string name="button_famousdevs">Famous Game Developers</string>
     <string name="title_activity_news_feed">NewsFeed</string>
+    <string name="action_refresh">Refresh</string>
 
 </resources>
