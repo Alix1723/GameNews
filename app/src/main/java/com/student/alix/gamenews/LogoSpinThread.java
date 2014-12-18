@@ -1,8 +1,5 @@
 package com.student.alix.gamenews;
 
-/**
- * Created by Alix on 18/12/2014. (Created by rla on 29/10/2014.)
- */
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -13,12 +10,15 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.view.SurfaceHolder;
 
+/**
+ * LogoSpinThread
+ * (Code partially duplicated from Labs by Bobby Law)
+ */
+
 public class LogoSpinThread extends Thread{
 
     private int canvasWidth;
     private int canvasHeight;
-    private float xPos = 0.0f;
-    private float yPos = 0.0f;
     private float cycle;
 
     private float HalfAppletHeight;

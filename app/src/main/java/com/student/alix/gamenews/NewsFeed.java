@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Debug;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -18,11 +17,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * NewsFeed (Activity)
+ */
 
 public class NewsFeed extends Activity {
 
@@ -34,15 +34,15 @@ public class NewsFeed extends Activity {
     SharedPreferences prefs;
     String platform;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_feed);
 
-        //Debug out
-        //DebugOut = (TextView)findViewById(R.id.text_debug);
+        //Loading indicator
         loadingSpinner = (ProgressBar)findViewById(R.id.loading_spinner);
+
+        //Listview to output news items to
         newsListView = (ListView)findViewById(R.id.news_list_view);
 
         //Preferences
@@ -54,7 +54,7 @@ public class NewsFeed extends Activity {
 
     //Run RSS read/parse task
     void ReadRSSFeed() {
-        //Determine platform from prefence
+        //Determine platform from preferences
         platform = prefs.getString("platform","none");
 
         //DebugOut.setText("Loading..."); //Loading text
@@ -65,7 +65,6 @@ public class NewsFeed extends Activity {
 
         //String to access RSS feed from
         String FeedURL = "";
-
         switch (platform)
         {
             case "xbox":
@@ -92,13 +91,14 @@ public class NewsFeed extends Activity {
                              //Retrieve result from task
                              try {
                                  NewsDataArray = feedParserTask.get();
-
                                  DisplayNews();
-                                 //Debug
-                                 //DebugOut.setText(NewsDataArray.get(1).getDescription());
-                             } catch (InterruptedException ex) {
+                             }
+                             catch (InterruptedException ex)
+                             {
                                  ex.printStackTrace();
-                             } catch (ExecutionException ex) {
+                             }
+                             catch (ExecutionException ex)
+                             {
                                  ex.printStackTrace();
                              }
                          } else {   //Run this again every 200ms until task is complete
@@ -112,14 +112,14 @@ public class NewsFeed extends Activity {
     //Populate list with news data
     void DisplayNews()
     {
-        //newsListView
+        //Array adapter
         ArrayAdapter<NewsDataItem> arrAdapt = new ArrayAdapter<NewsDataItem>(
                 this,
                 android.R.layout.simple_expandable_list_item_1,
                 NewsDataArray);
 
-        loadingSpinner.setVisibility(View.GONE);
-        newsListView.setAdapter(arrAdapt);
+        loadingSpinner.setVisibility(View.GONE); //Hide loading spinner
+        newsListView.setAdapter(arrAdapt); //Set the listview's adapter to this array adapter
 
         //List view click listener
         newsListView.setOnItemClickListener(
@@ -135,8 +135,6 @@ public class NewsFeed extends Activity {
                     }
                 }
         );
-
-        //DebugOut.setText("Done.");
     }
 
     @Override

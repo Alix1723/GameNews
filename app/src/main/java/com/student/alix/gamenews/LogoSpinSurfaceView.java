@@ -1,31 +1,30 @@
 package com.student.alix.gamenews;
 
+    import android.content.Context;
+    import android.view.SurfaceHolder;
+    import android.view.SurfaceView;
+
 /**
- * Created by Alix on 18/12/2014. (Created by rla on 29/10/2014.)
+ * LogoSpinSurfaceView
+ * (Code duplicated from Labs by Bobby Law)
  */
-        import android.content.Context;
-        import android.os.Bundle;
-        import android.view.SurfaceHolder;
-        import android.view.SurfaceView;
 
 public class LogoSpinSurfaceView extends SurfaceView implements SurfaceHolder.Callback
 {
-    private SurfaceHolder shBioSurface;
+    //SurfaceHolder for the canvas
+    private SurfaceHolder shLogoSurface;
 
+    //Thread for drawing with
     LogoSpinThread drawingThread = null;
 
+    //Create the view
     public LogoSpinSurfaceView(Context context)
     {
         super(context);
-        draw();
-        setFocusable(true);
-    }
-
-    public void draw()
-    {
-        shBioSurface = getHolder();
-        shBioSurface.addCallback(this);
+        shLogoSurface = getHolder();
+        shLogoSurface.addCallback(this);
         drawingThread = new LogoSpinThread(getHolder(), this,getContext());
+        setFocusable(true);
     }
 
     public LogoSpinThread getThread()

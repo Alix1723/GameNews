@@ -1,12 +1,12 @@
 package com.student.alix.gamenews;
 
-/**
- * Created by Alix on 18/12/2014.
- */
-
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Button;
+
+/**
+ * PlatformPreferences
+ */
 
 public class PlatformPreferences {
     SharedPreferences sharedPrefs;

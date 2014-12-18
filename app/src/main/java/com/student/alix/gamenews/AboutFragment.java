@@ -7,7 +7,9 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 
-import com.student.alix.gamenews.R;
+/**
+ * AboutFragment
+ */
 
 public class AboutFragment extends DialogFragment {
 

@@ -1,17 +1,14 @@
 package com.student.alix.gamenews;
 
-/**
- * Created by Alix on 04/12/2014.
- */
-
 import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.Toast;
-
-import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 
+/**
+ * FeedParserAsync
+ * (Code partially duplicated from Labs by Bobby Law)
+ */
 
 public class FeedParserAsync extends AsyncTask<String, Integer, ArrayList<NewsDataItem>>
 {
@@ -27,7 +24,6 @@ public class FeedParserAsync extends AsyncTask<String, Integer, ArrayList<NewsDa
     @Override
     protected void onPreExecute()
     {
-        //Toast.makeText(appContext, "Parsing initialized...",Toast.LENGTH_SHORT);
     }
 
     //Parsing
@@ -54,6 +50,5 @@ public class FeedParserAsync extends AsyncTask<String, Integer, ArrayList<NewsDa
     @Override
     protected void onPostExecute(ArrayList<NewsDataItem> result)
     {
-       // Toast.makeText(appContext,"Done parsing!", Toast.LENGTH_SHORT);
     }
 }

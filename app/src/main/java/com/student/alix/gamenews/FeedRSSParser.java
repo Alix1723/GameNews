@@ -15,8 +15,10 @@ import java.net.URL;
 import java.util.ArrayList;
 
 /**
- * Created by Alix on 04/12/2014.
+ * FeedRSSParser
+ * (Code partially duplicated from Labs by Bobby Law)
  */
+
 public class FeedRSSParser {
 
     private ArrayList<NewsDataItem> newsData = new ArrayList<NewsDataItem>();
@@ -29,13 +31,12 @@ public class FeedRSSParser {
 
     //Constructor
     public FeedRSSParser() {
-        //
+
     }
 
     //Parser
     public void parseRSSDataItems(XmlPullParser theParser, int theEventType)
     {
-        //int newsDataIndex = 1;
         try
         {
             while(theEventType != XmlPullParser.END_DOCUMENT) {

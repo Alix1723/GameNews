@@ -17,6 +17,10 @@ import android.widget.Toast;
 
 import com.student.alix.gamenews.R;
 
+/**
+ * PreferencesActivity (Activity)
+ */
+
 public class PreferencesActivity extends Activity implements View.OnClickListener {
 
     Button saveButton;

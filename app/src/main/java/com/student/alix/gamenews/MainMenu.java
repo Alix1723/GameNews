@@ -14,6 +14,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * MainMenu
+ */
+
 public class MainMenu extends Activity implements View.OnClickListener{
 
     Button NewsFeedButton;

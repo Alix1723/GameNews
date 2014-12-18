@@ -1,8 +1,10 @@
 package com.student.alix.gamenews;
 
 /**
- * Created by Alix on 18/12/2014.
+ * LogoSpinSurfaceView
+ * (Code partially duplicated from Labs by Bobby Law)
  */
+
 public class DevMapData {
 
     private int entryID;

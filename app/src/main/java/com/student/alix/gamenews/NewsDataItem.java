@@ -1,16 +1,15 @@
 package com.student.alix.gamenews;
 
 /**
- * Created by Alix on 04/12/2014.
+ * FeedRSSParser
+ * (Code partially duplicated from Labs by Bobby Law)
  */
-import java.io.Serializable;
 
 public class NewsDataItem
 {
     private String newsTitle;
     private String newsDescription;
     private String newsLink;
-
 
     //Member getters/setters
     public String getTitle()

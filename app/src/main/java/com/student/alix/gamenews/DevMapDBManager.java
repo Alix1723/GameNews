@@ -17,8 +17,10 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Created by Alix on 18/12/2014.
+ * LogoSpinSurfaceView
+ * (Code duplicated from Labs by Bobby Law)
  */
+
 public class DevMapDBManager extends SQLiteOpenHelper {
 
     private static final int DB_VER = 1;
