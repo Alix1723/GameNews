@@ -75,8 +75,8 @@ public class MainMenu extends Activity implements View.OnClickListener {
         else if(view.getId() == R.id.button_famousdevs)
         {
             //Open famous developers map
-            //Intent famousDevsIntent = new Intent(getApplicationContext(),NewsFeed.class);
-            //startActivity(famousDevsIntent);
+            Intent famousDevsIntent = new Intent(getApplicationContext(),FamousDevelopers.class);
+            startActivity(famousDevsIntent);
         }
     }
 }
