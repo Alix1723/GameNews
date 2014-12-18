@@ -1,12 +1,17 @@
 package com.student.alix.gamenews;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Debug;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -88,6 +93,21 @@ public class NewsFeed extends Activity {
                 NewsDataArray);
 
         newsListView.setAdapter(arrAdapt);
+
+        //List view click listener
+        newsListView.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        String link = NewsDataArray.get(position).getLink();
+                        Log.e("n",link);
+
+                        //Open URL in default browser
+                        Intent openLink = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                        startActivity(openLink);
+                    }
+                }
+        );
 
         DebugOut.setText("Done.");
     }
