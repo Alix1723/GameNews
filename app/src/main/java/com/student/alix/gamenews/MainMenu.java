@@ -1,6 +1,9 @@
 package com.student.alix.gamenews;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -11,12 +14,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-public class MainMenu extends Activity implements View.OnClickListener {
+public class MainMenu extends Activity implements View.OnClickListener{
 
     Button NewsFeedButton;
     Button FamousDevsButton;
     SharedPreferences sharedPrefs;
     PlatformPreferences platPrefs;
+    AboutFragment aboutDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +28,7 @@ public class MainMenu extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_main_menu);
 
         //Portrait Orientation
-//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         //Buttons
         NewsFeedButton = (Button) findViewById(R.id.button_newsfeed);
@@ -35,6 +39,8 @@ public class MainMenu extends Activity implements View.OnClickListener {
 
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         platPrefs = new PlatformPreferences(sharedPrefs); //Defaults to PS
+
+        aboutDialog = new AboutFragment();
     }
 
     @Override
@@ -57,6 +63,11 @@ public class MainMenu extends Activity implements View.OnClickListener {
             startActivity(openPrefsIntent);
             return true;
         }
+        else if(id == R.id.about)
+        {
+            //Open About dialog
+            aboutDialog.show(getFragmentManager(),"AboutDialog");
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -64,7 +75,7 @@ public class MainMenu extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View view)
     {
-        //Button press
+        //Button presses
         if(view.getId() == R.id.button_newsfeed)
         {
             //Open news feed
@@ -72,11 +83,19 @@ public class MainMenu extends Activity implements View.OnClickListener {
             startActivity(newsFeedIntent);
         }
 
-        else if(view.getId() == R.id.button_famousdevs)
+        if(view.getId() == R.id.button_famousdevs)
         {
             //Open famous developers map
             Intent famousDevsIntent = new Intent(getApplicationContext(),FamousDevelopers.class);
             startActivity(famousDevsIntent);
         }
+
+        if(view.getId() == R.id.button_logospin)
+        {
+            //Open spinning logo
+            Intent spinLogoIntent = new Intent(getApplicationContext(),LogoSpin.class);
+            startActivity(spinLogoIntent);
+        }
+
     }
 }

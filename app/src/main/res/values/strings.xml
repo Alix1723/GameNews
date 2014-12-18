@@ -14,5 +14,8 @@
     <string name="title_preferences">Platform Selection</string>
     <string name="action_platform">Platform</string>
     <string name="title_activity_famous_developers">Famous Developers</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="button_logo">Spinning Logo</string>
+    <string name="title_activity_logo_spin">LogoSpin</string>
 
 </resources>
